@@ -150,19 +150,13 @@ export default class Home extends Vue {
                 }
             )
         );
-        newArticles.sort( (x:Article | undefined,y:Article | undefined) => {
-            if(typeof x == "undefined" && typeof y == "undefined") {
-                return 0;
-            }
-            if(typeof x == "undefined") {
-                return -1;
-            }
-            if(typeof y == "undefined") {
-                return 1;
-            }
+
+        const nonNullArticles = newArticles.filter(x => typeof x != "undefined") as Article[];
+
+        nonNullArticles.sort( (x:Article, y:Article) => {
             return x.createdAt.localeCompare(y.createdAt);
         });
-        this.articles = newArticles as Article[];
+        this.articles = nonNullArticles;
     }
 
     private async mounted(): Promise<void> {
