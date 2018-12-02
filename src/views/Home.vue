@@ -154,7 +154,9 @@ export default class Home extends Vue {
         const nonNullArticles = newArticles.filter(x => typeof x != "undefined") as Article[];
 
         nonNullArticles.sort( (x:Article, y:Article) => {
-            return x.createdAt.localeCompare(y.createdAt);
+            const a = new Date(x.createdAt);
+            const b = new Date(y.createdAt);
+            return a.getTime() - b.getTime();
         });
         this.articles = nonNullArticles;
     }
